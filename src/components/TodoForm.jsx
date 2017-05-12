@@ -11,10 +11,20 @@ import {
 } from 'reactstrap';
 import {connect} from 'react-redux';
 
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import {getMoodIcon} from 'utilities/weather.js';
 import {createTodo, input, inputDanger, toggleMood, setMoodToggle, selectMood} from 'states/todo-actions.js';
 
 import './PostForm.css';
+
+const Add_Button ={
+	margin: 18,
+};
+
 
 class TodoForm extends React.Component {
     static propTypes = {
@@ -46,25 +56,10 @@ class TodoForm extends React.Component {
             <div className='post-form'>
                 <Alert color='info' className={`d-flex flex-column flex-sm-row justify-content-center ${inputDanger}`}>
                     <div className='mood align-self-start'>
-                        <ButtonDropdown type='buttom' isOpen={moodToggle} toggle={this.handleMoodToggle}>
-                            <DropdownToggle className='mood-toggle' type='button' caret color="secondary">
-                                <i className={getMoodIcon(mood)}></i>&nbsp;{
-                                    mood === 'na' ? 'Mood' : mood
-                                }
-                            </DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem type='button' onClick={() => this.handleDropdownSelect('Clear')}><i className={getMoodIcon('Clear')}></i>&nbsp;&nbsp;Clear</DropdownItem>
-                                <DropdownItem type='button' onClick={() => this.handleDropdownSelect('Clouds')}><i className={getMoodIcon('Clouds')}></i>&nbsp;&nbsp;Clouds</DropdownItem>
-                                <DropdownItem type='button' onClick={() => this.handleDropdownSelect('Drizzle')}><i className={getMoodIcon('Drizzle')}></i>&nbsp;&nbsp;Drizzle</DropdownItem>
-                                <DropdownItem type='button' onClick={() => this.handleDropdownSelect('Rain')}><i className={getMoodIcon('Rain')}></i>&nbsp;&nbsp;Rain</DropdownItem>
-                                <DropdownItem type='button' onClick={() => this.handleDropdownSelect('Thunder')}><i className={getMoodIcon('Thunder')}></i>&nbsp;&nbsp;Thunder</DropdownItem>
-                                <DropdownItem type='button' onClick={() => this.handleDropdownSelect('Snow')}><i className={getMoodIcon('Snow')}></i>&nbsp;&nbsp;Snow</DropdownItem>
-                                <DropdownItem type='button' onClick={() => this.handleDropdownSelect('Windy')}><i className={getMoodIcon('Windy')}></i>&nbsp;&nbsp;Windy</DropdownItem>
-                            </DropdownMenu>
-                        </ButtonDropdown>
                     </div>
-                    <Input className='input' type='textarea' getRef={el => {this.inputEl = el}} value={this.props.inputValue} onChange={this.handleInputChange} placeholder="What's next to do?"></Input>
-                    <Button className='btn-post align-self-end' color="info" onClick={this.handlePost}>Add</Button>
+					<TextField className='input' type='textarea' getRef={el => {this.inputEl = el}} value={this.props.inputValue} onChange={this.handleInputChange} hintText="Coding At 4:00A.M....." floatingLabelText="What's next to do?"/>
+                    
+					<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={Add_Button}/>
                 </Alert>
             </div>
         );
