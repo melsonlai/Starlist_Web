@@ -1,27 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    Alert,
-    Input,
-    Button,
-    ButtonDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
-} from 'reactstrap';
 import {connect} from 'react-redux';
-
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Card from 'material-ui/Card';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {getMoodIcon} from 'utilities/weather.js';
-import {createTodo, input, inputDanger, toggleMood, setMoodToggle, selectMood} from 'states/todo-actions.js';
+import {createTodo, input, inputDanger} from 'states/todo-actions.js';
 
-import './PostForm.css';
+import './TodoForm.css';
 
 const Add_Button ={
 	margin: 18,
@@ -32,8 +20,6 @@ class TodoForm extends React.Component {
     static propTypes = {
         inputValue: PropTypes.string,
         inputDanger: PropTypes.bool,
-        moodToggle: PropTypes.bool,
-        mood: PropTypes.string,
         dispatch: PropTypes.func
     };
 
@@ -44,14 +30,12 @@ class TodoForm extends React.Component {
         this.moodToggleEl = null;
 
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
-        this.handleMoodToggle = this.handleMoodToggle.bind(this);
 
         this.handlePost = this.handlePost.bind(this);
     }
 
     render() {
-        const {inputValue, moodToggle, mood} = this.props;
+        const {inputValue} = this.props;
         const inputDanger = this.props.inputDanger ? 'has-danger' : '';
 
         return (
@@ -60,15 +44,11 @@ class TodoForm extends React.Component {
                     <div className='mood align-self-start'>
                     </div>
 					<TextField className='input' type='textarea' getRef={el => {this.inputEl = el}} value={this.props.inputValue} onChange={this.handleInputChange} hintText="Coding At 4:00A.M....." floatingLabelText="What's next to do?"/>
-                    
+
 					<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={Add_Button}/>
                 </Card>
             </div>
         );
-    }
-
-    handleDropdownSelect(mood) {
-        this.props.dispatch(selectMood(mood));
     }
 
     handleInputChange(e) {
@@ -79,24 +59,14 @@ class TodoForm extends React.Component {
         }
     }
 
-    handleMoodToggle(e) {
-        this.props.dispatch(toggleMood());
-    }
-
     handlePost() {
-        const {mood, inputValue, dispatch} = this.props;
-        if (mood === 'na') {
-            dispatch(setMoodToggle(true));
-            return;
-        }
+        const {inputValue, dispatch} = this.props;
         if (!inputValue) {
             dispatch(inputDanger(true));
             return;
         }
-
-        dispatch(createTodo(mood, inputValue));
+//        dispatch(createTodo(mood, inputValue));
         dispatch(input(''));
-        dispatch(selectMood('na'));
     }
 }
 

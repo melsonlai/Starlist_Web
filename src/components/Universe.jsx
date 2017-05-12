@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Alert, Label, Input} from 'reactstrap';
 
-import Checkbox from 'material-ui/Checkbox';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
 import {listTodos, toggleAndList} from 'states/todo-actions.js';
+
+import Checkbox from 'material-ui/Checkbox';
 
 import './Universe.css';
 
