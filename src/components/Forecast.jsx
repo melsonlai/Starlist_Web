@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Alert, Label, Input} from 'reactstrap';
 
-import WeatherDisplay from 'components/WeatherDisplay.jsx';
-import WeatherTable from 'components/WeatherTable.jsx';
-import WeatherForm from 'components/WeatherForm.jsx';
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
 import {cancelForecast} from 'api/open-weather-map.js';
@@ -60,13 +57,6 @@ class Forecast extends React.Component {
 
         return (
             <div className='forecast'>
-                <div className='tomorrow'>
-                    <WeatherForm city={city} defaultUnit={unit} submitAction={getForecast}/>
-                    <WeatherDisplay {...tomorrow} day='tomorrow' unit={unit} masking={masking}/>
-                </div>
-                <div className='rests'>
-                    <WeatherTable list={rests} unit={unit} masking={masking}/>
-                </div>
                 <div className='todos'>
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4><i className='fa fa-tags' aria-hidden="true"></i>&nbsp;&nbsp;Todos</h4>

@@ -18,7 +18,6 @@ import {
 } from 'reactstrap';
 import {connect} from 'react-redux';
 
-import Today from 'components/Today.jsx';
 import Forecast from 'components/Forecast.jsx';
 import {setSearchText} from 'states/post-actions.js';
 import {toggleNavbar} from 'states/main-actions.js';
@@ -54,12 +53,6 @@ class Main extends React.Component {
                                 <NavbarBrand className='text-info' href="/">WeatherMood</NavbarBrand>
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
                                     <Nav navbar>
-                                        <NavItem>
-                                            <NavLink tag={Link} to='/'>Today</NavLink>
-                                        </NavItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} to='/forecast'>Forecast</NavLink>
-                                        </NavItem>
                                     </Nav>
                                     <div className='search ml-auto'>
                                         <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>{
@@ -71,13 +64,7 @@ class Main extends React.Component {
                             </Navbar>
                         </div>
                     </div>
-
-                    <Route exact path="/" render={() => (
-                        <Today />
-                    )}/>
-                    <Route exact path="/forecast" render={() => (
-                        <Forecast />
-                    )}/>
+                    <Forecast />
                     <div className='footer'>
                         DataLab.
                     </div>
