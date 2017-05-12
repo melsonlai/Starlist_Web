@@ -5,19 +5,14 @@ import {Alert, Label, Input} from 'reactstrap';
 
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
-import {cancelForecast} from 'api/open-weather-map.js';
-import {getForecast} from 'states/weather-actions.js';
 import {listTodos, toggleAndList} from 'states/todo-actions.js';
 
 import './Forecast.css';
 
 class Forecast extends React.Component {
     static propTypes = {
-        city: PropTypes.string,
         list: PropTypes.array,
-        forecastLoading: PropTypes.bool,
         masking: PropTypes.bool,
-        unit: PropTypes.string,
         todoLoading: PropTypes.bool,
         todos: PropTypes.array,
         searchText: PropTypes.string,
@@ -31,14 +26,7 @@ class Forecast extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(getForecast('Hsinchu', this.props.unit));
         this.props.dispatch(listTodos(this.props.searchText));
-    }
-
-    componentWillUnmount() {
-        if (this.props.forecastLoading) {
-            cancelForecast();
-        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -48,12 +36,8 @@ class Forecast extends React.Component {
     }
 
     render() {
-        const {unit, city, list, masking, todoLoading, todos} = this.props;
-        const tomorrow = list[0];
-        const rests = list.slice(1);
-
-        document.body.className = `weather-bg ${tomorrow.group}`;
-        document.querySelector('.weather-bg .mask').className = `mask ${masking ? 'masking' : ''}`;
+        document.body.className = `weather-bg`;
+        document.querySelector('.weather-bg .mask').className = `mask ${this.props.masking ? 'masking' : ''}`;
 
         return (
             <div className='forecast'>
@@ -63,8 +47,8 @@ class Forecast extends React.Component {
                         <div><Input type="checkbox" checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly} />&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>Unaccomplished</Label></div>
                     </div>
                     <TodoForm />
-                    <TodoList todos={todos} />{
-                        todoLoading &&
+                    <TodoList todos={this.props.todos} />{
+                        this.props.todoLoading &&
                         <Alert color='warning' className='loading'>Loading...</Alert>
                     }
                 </div>
@@ -78,8 +62,6 @@ class Forecast extends React.Component {
 }
 
 export default connect(state => ({
-    ...state.forecast,
-    unit: state.unit,
     ...state.todo,
     searchText: state.searchText
 }))(Forecast);
