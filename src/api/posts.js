@@ -1,73 +1,54 @@
 import axios from 'axios';
-import uuid from 'uuid/v4';
-import moment from 'moment';
-import 'babel-polyfill';
 
-const postKey = 'posts';
+// Develop server URL
+// const postBaseUrl = 'http://localhost:8080/api';
+
+// Staging server URL
+// const postBaseUrl = 'http://weathermood-staging.us-west-2.elasticbeanstalk.com/api';
+
+// Production server URL
+const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 
 export function listPosts(searchText = '') {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(_listPosts(searchText));
-        }, 500);
+    let url = `${postBaseUrl}/posts`;
+    if (searchText)
+        url += `?searchText=${searchText}`;
+
+    console.log(`Making GET request to: ${url}`);
+
+    return axios.get(url).then(function(res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
     });
 }
-
-// Simulated server-side code
-function _listPosts(searchText = '') {
-    let postString = localStorage.getItem(postKey);
-    let posts = postString ? JSON.parse(postString) : [];
-    if (posts.length > 0 && searchText) {
-        posts = posts.filter(p => {
-            return p.text.toLocaleLowerCase().indexOf(searchText.toLowerCase()) !== -1
-        });
-    }
-    return posts;
-};
 
 export function createPost(mood, text) {
-    return new Promise((resolve, reject) => {
-        resolve(_createPost(mood, text));
-    });
-}
+    let url = `${postBaseUrl}/posts`;
 
-// Simulated server-side code
-function _createPost(mood, text) {
-    const newPost = {
-        id: uuid(),
-        mood: mood,
-        text: text,
-        ts: moment().unix(),
-        clearVotes: 0,
-        cloudsVotes: 0,
-        drizzleVotes: 0,
-        rainVotes: 0,
-        thunderVotes: 0,
-        snowVotes: 0,
-        windyVotes: 0
-    };
-    const posts = [
-        newPost,
-        ..._listPosts()
-    ];
-    localStorage.setItem(postKey, JSON.stringify(posts));
-    return newPost;
+    console.log(`Making POST request to: ${url}`);
+
+    return axios.post(url, {
+        mood,
+        text
+    }).then(function(res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
+    });
 }
 
 export function createVote(id, mood) {
-    return new Promise((resolve, reject) => {
-        _createVote(id, mood);
-        resolve();
-    });
-}
+    let url = `${postBaseUrl}/posts/${id}/${mood.toLowerCase()}Votes`;
 
-// Simulated server-side code
-function _createVote(id, mood) {
-    const posts = _listPosts().map(p => {
-        if (p.id === id) {
-            p[mood.toLowerCase() + 'Votes']++;
-        }
-        return p;
+    console.log(`Making POST request to: ${url}`);
+
+    return axios.post(url).then(function(res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
     });
-    localStorage.setItem(postKey, JSON.stringify(posts));
 }

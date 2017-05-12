@@ -7,10 +7,9 @@ import WeatherDisplay from 'components/WeatherDisplay.jsx';
 import WeatherForm from 'components/WeatherForm.jsx';
 import {cancelWeather} from 'api/open-weather-map.js';
 import {getWeather} from 'states/weather-actions.js';
+import {listPosts, createPost, createVote} from 'states/post-actions.js';
 import PostForm from 'components/PostForm.jsx';
 import PostList from 'components/PostList.jsx';
-import {createPost, createVote} from 'api/posts.js';
-import {listPosts} from "states/post-actions.js";
 
 import './Today.css';
 
@@ -24,22 +23,19 @@ class Today extends React.Component {
         unit: PropTypes.string,
         weatherLoading: PropTypes.bool,
         masking: PropTypes.bool,
-        dispatch: PropTypes.func,
-		searchText: PropTypes.string,
-		postLoading: PropTypes.bool,
-		posts: PropTypes.array
+        searchText: PropTypes.string,
+        postLoading: PropTypes.bool,
+        posts: PropTypes.array,
+        dispatch: PropTypes.func
     };
 
     constructor(props) {
         super(props);
-
-        this.handleCreatePost = this.handleCreatePost.bind(this);
-        this.handleCreateVote = this.handleCreateVote.bind(this);
     }
 
     componentDidMount() {
         this.props.dispatch(getWeather('Hsinchu', this.props.unit));
-        this.listPosts(this.props.searchText);
+        this.props.dispatch(listPosts(this.props.searchText));
     }
 
     componentWillUnmount() {
@@ -50,7 +46,7 @@ class Today extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchText !== this.props.searchText) {
-            this.listPosts(nextProps.searchText);
+            this.props.dispatch(listPosts(nextProps.searchText));
         }
     }
 
@@ -67,8 +63,9 @@ class Today extends React.Component {
                     <WeatherDisplay {...{group, description, temp, unit, masking}} day='today'/>
                 </div>
                 <div className='posts'>
-                    <PostForm onPost={this.handleCreatePost} />
-                    <PostList posts={posts} onVote={this.handleCreateVote} />{
+                    <h4 className='label'><i className='fa fa-paper-plane' aria-hidden="true"></i>&nbsp;&nbsp;Posts</h4>
+                    <PostForm />
+                    <PostList posts={posts} />{
                         postLoading &&
                         <Alert color='warning' className='loading'>Loading...</Alert>
                     }
@@ -76,32 +73,11 @@ class Today extends React.Component {
             </div>
         );
     }
-
-	listPosts(searchText) {
-        this.props.dispatch(listPosts(searchText));
-    }
-
-    handleCreatePost(mood, text) {
-        createPost(mood, text).then(() => {
-            this.listPosts(this.props.searchText);
-        }).catch(err => {
-            console.error('Error creating posts', err);
-        });
-    }
-
-    handleCreateVote(id, mood) {
-        createVote(id, mood).then(() => {
-            this.listPosts(this.props.searchText);
-        }).catch(err => {
-            console.error('Error creating vote', err);
-        });
-    }
 }
 
-export default connect((state) => {
-    return {
-        ...state.weather,
-		...state.posts,
-        unit: state.unit
-    };
-})(Today);
+export default connect(state => ({
+    ...state.weather,
+    unit: state.unit,
+    ...state.post,
+    searchText: state.searchText,
+}))(Today);

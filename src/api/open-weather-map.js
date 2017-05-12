@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // TODO replace the key with yours
-const key = '36978c6550efee0e27e50850cc57adda';
+const key = '4c435802402fb37466adefd3482b90f3';
 
 export function getWeatherGroup(code) {
     let group = 'na';

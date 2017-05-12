@@ -113,6 +113,4 @@ class WeatherForm extends React.Component {
     }
 }
 
-export default connect((state) => {
-    return state.weatherForm;
-})(WeatherForm);
+export default connect(state => state.weatherForm)(WeatherForm);

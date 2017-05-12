@@ -15,6 +15,7 @@
 .post-item .wrap {
     width: 100%;
     padding-left: 0.75rem;
+    overflow: hidden;
 }
 
 .post-item .ts {

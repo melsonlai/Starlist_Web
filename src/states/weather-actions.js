@@ -84,7 +84,7 @@ export function toggleForm() {
 export function input(value) {
     return {
         type: '@WEATHER_FORM/INPUT',
-        value: value
+        value
     };
 }
 
@@ -97,7 +97,7 @@ export function toggleTemp() {
 export function selectUnit(unit) {
     return {
         type: '@WEATHER_FORM/SELECT_UNIT',
-        unit: unit
+        unit
     };
 }
 

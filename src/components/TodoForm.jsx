@@ -12,11 +12,11 @@ import {
 import {connect} from 'react-redux';
 
 import {getMoodIcon} from 'utilities/weather.js';
-import {createPost, input, inputDanger, toggleMood, setMoodToggle, selectMood} from 'states/post-actions.js';
+import {createTodo, input, inputDanger, toggleMood, setMoodToggle, selectMood} from 'states/todo-actions.js';
 
 import './PostForm.css';
 
-class PostForm extends React.Component {
+class TodoForm extends React.Component {
     static propTypes = {
         inputValue: PropTypes.string,
         inputDanger: PropTypes.bool,
@@ -63,8 +63,8 @@ class PostForm extends React.Component {
                             </DropdownMenu>
                         </ButtonDropdown>
                     </div>
-                    <Input className='input' type='textarea' getRef={el => {this.inputEl = el}} value={this.props.inputValue} onChange={this.handleInputChange} placeholder="What's on your mind?"></Input>
-                    <Button className='btn-post align-self-end' color="info" onClick={this.handlePost}>Post</Button>
+                    <Input className='input' type='textarea' getRef={el => {this.inputEl = el}} value={this.props.inputValue} onChange={this.handleInputChange} placeholder="What's next to do?"></Input>
+                    <Button className='btn-post align-self-end' color="info" onClick={this.handlePost}>Add</Button>
                 </Alert>
             </div>
         );
@@ -87,21 +87,22 @@ class PostForm extends React.Component {
     }
 
     handlePost() {
-        if (this.props.mood === 'na') {
-            this.props.dispatch(setMoodToggle(true));
+        const {mood, inputValue, dispatch} = this.props;
+        if (mood === 'na') {
+            dispatch(setMoodToggle(true));
             return;
         }
-        if (!this.props.inputValue) {
-            this.props.dispatch(inputDanger(true));
+        if (!inputValue) {
+            dispatch(inputDanger(true));
             return;
         }
 
-        this.props.dispatch(createPost(this.props.mood, this.props.inputValue));
-        this.props.dispatch(input(''));
-        this.props.dispatch(selectMood('na'));
+        dispatch(createTodo(mood, inputValue));
+        dispatch(input(''));
+        dispatch(selectMood('na'));
     }
 }
 
 export default connect(state => ({
-    ...state.postForm
-}))(PostForm);
+    ...state.todoForm
+}))(TodoForm);

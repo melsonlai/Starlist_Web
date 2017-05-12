@@ -12,15 +12,11 @@ import './PostList.css';
 
 export default class PostList extends React.Component {
     static propTypes = {
-        posts: PropTypes.array,
-        filter: PropTypes.string,
-        onVote: PropTypes.func
+        posts: PropTypes.array
     };
 
     constructor(props) {
         super(props);
-
-        this.handleVote = this.handleVote.bind(this);
     }
 
     render() {
@@ -34,7 +30,7 @@ export default class PostList extends React.Component {
         if (posts.length) {
             children = posts.map(p => (
                 <ListGroupItem key={p.id} action>
-                    <PostItem {...p} onVote={this.handleVote} />
+                    <PostItem {...p} />
                 </ListGroupItem>
             ));
         }
@@ -44,9 +40,5 @@ export default class PostList extends React.Component {
                 <ListGroup>{children}</ListGroup>
             </div>
         );
-    }
-
-    handleVote(id, mood) {
-        this.props.onVote(id, mood);
     }
 }
