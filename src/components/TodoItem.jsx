@@ -13,22 +13,6 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-const iconButtonElement = (
-  <IconButton
-    touch={true}
-    tooltip="more"
-    tooltipPosition="bottom-left"
-  >
-    <MoreVertIcon color={grey400} />
-  </IconButton>
-);
-
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Edit</MenuItem>
-    <MenuItem>Delete</MenuItem>
-  </IconMenu>
-);
 
 class TodoItem extends React.Component {
     static propTypes = {
@@ -44,8 +28,24 @@ class TodoItem extends React.Component {
     }
 
     render() {
-        const {} = this.props;
+        const {title,content,deadline,starID} = this.props;
 
+        const iconButtonElement = (
+        <IconButton
+            touch={true}
+            tooltip="more"
+            tooltipPosition="bottom-left"
+        >
+            <MoreVertIcon color={grey400} />
+        </IconButton>
+        );
+
+        const rightIconMenu = (
+        <IconMenu iconButtonElement={iconButtonElement}>
+            <MenuItem>Edit</MenuItem>
+            <MenuItem>Delete</MenuItem>
+        </IconMenu>
+        );
         return (
             <div className='todoItem' >
                 <ListItem
