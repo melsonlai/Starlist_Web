@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Alert, Label, Input} from 'reactstrap';
 
+import Checkbox from 'material-ui/Checkbox';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
 import {listTodos, toggleAndList} from 'states/todo-actions.js';
@@ -44,7 +49,7 @@ class Universe extends React.Component {
                 <div className='todos'>
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4><i className='fa fa-tags' aria-hidden="true"></i>&nbsp;&nbsp;Todos</h4>
-                        <div><Input type="checkbox" checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly} />&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>Unaccomplished</Label></div>
+                        <div><Checkbox checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly} />&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>Unaccomplished</Label></div>
                     </div>
                     <TodoForm />
                     <TodoList todos={this.props.todos} />{
