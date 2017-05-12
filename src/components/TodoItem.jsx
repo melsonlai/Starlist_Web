@@ -2,50 +2,69 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import moment from 'moment';
+import uuid from "uuid/v4";
 
 import {accomplishTodo} from 'states/todo-actions.js';
-import {getMoodIcon} from 'utilities/weather.js';
 
 import './TodoItem.css';
+import MobileTearSheet from '../../../MobileTearSheet';
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader';
+import Avatar from 'material-ui/Avatar';
+import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+const iconButtonElement = (
+  <IconButton
+    touch={true}
+    tooltip="more"
+    tooltipPosition="bottom-left"
+  >
+    <MoreVertIcon color={grey400} />
+  </IconButton>
+);
+
+const rightIconMenu = (
+  <IconMenu iconButtonElement={iconButtonElement}>
+    <MenuItem>Edit</MenuItem>
+    <MenuItem>Delete</MenuItem>
+  </IconMenu>
+);
 
 class TodoItem extends React.Component {
     static propTypes = {
-        id: PropTypes.string,
-        mood: PropTypes.string,
-        text: PropTypes.string,
-        ts: PropTypes.number,
-        doneTs: PropTypes.number,
-        dispatch: PropTypes.func
+        title: PropTypes.string,
+        content: PropTypes.string,
+        deadline: PropTypes.instanceOf(Date),
+        starID: PropTypes.number
     };
 
     constructor(props) {
         super(props);
-
         this.handleCheckboxCheck = this.handleCheckboxCheck.bind(this);
     }
 
     render() {
-        const {id, mood, text, ts, doneTs} = this.props;
+        const {} = this.props;
 
         return (
-            <div className={'todo-item d-flex flex-column ' + (doneTs ? 'done' : 'undone')}  onClick={this.handleCheckboxCheck}>
-                <div className='todo d-flex'>
-                    <div className='mood'><i className={getMoodIcon(mood)}></i></div>
-                    <div className='wrap'>
-                        <div className='ts'>{'Created: ' + moment(ts * 1000).calendar()}</div>
-                        <div className='text'>{text}</div>
-                    </div>
-                </div>
-                <div className='check d-flex justify-content-end align-items-center'>
-                    <div className='done-ts'>{
-                        !!doneTs &&
-                        <span>{moment(doneTs * 1000).calendar()}</span>
-                    }</div>
-                    <div className='checkbox' >
-                        <i className={'fa ' + (doneTs ? 'fa-check-square' : 'fa-square-o')} aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
+            <div className='todoItem' >
+                <ListItem
+				leftCheckbox={<Checkbox onCheck={this.handleCheckboxCheck}/>}
+         		rightIconButton={rightIconMenu}
+          		primaryText={title}
+          		secondaryText={
+            	<p>
+              		<span style={{color: darkBlack}}>{deadline}</span><br />
+              		I&apos;{content}		  
+            	</p>
+          		}
+          		secondaryTextLines={5}
+       			/>	
+			</div>
         );
     }
 
