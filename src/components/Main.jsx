@@ -21,7 +21,7 @@ import {connect} from 'react-redux';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import SettingIcon from 'material-ui/svg-icons/action/settings';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -72,13 +72,11 @@ class Main extends React.Component {
 	                                    </div>
 										<div>
 											<IconMenu
-												iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+												iconButtonElement={<IconButton><SettingIcon /></IconButton>}
 												anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 												targetOrigin={{horizontal: 'right', vertical: 'top'}}
 										    >
-												<MenuItem primaryText="Refresh" />
-												<MenuItem primaryText="Send feedback" />
-												<MenuItem primaryText="Settings" />
+												<MenuItem primaryText="Account Settings" />
 												<MenuItem primaryText="Help" />
 												<MenuItem primaryText="Sign out" />
 										    </IconMenu>
