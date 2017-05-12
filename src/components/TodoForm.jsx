@@ -11,9 +11,11 @@ import {
 } from 'reactstrap';
 import {connect} from 'react-redux';
 
+
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Card from 'material-ui/Card';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {getMoodIcon} from 'utilities/weather.js';
@@ -54,13 +56,13 @@ class TodoForm extends React.Component {
 
         return (
             <div className='post-form'>
-                <Alert color='info' className={`d-flex flex-column flex-sm-row justify-content-center ${inputDanger}`}>
+                <Card color='info' className={`d-flex flex-column flex-sm-row justify-content-center ${inputDanger}`}>
                     <div className='mood align-self-start'>
                     </div>
 					<TextField className='input' type='textarea' getRef={el => {this.inputEl = el}} value={this.props.inputValue} onChange={this.handleInputChange} hintText="Coding At 4:00A.M....." floatingLabelText="What's next to do?"/>
                     
 					<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={Add_Button}/>
-                </Alert>
+                </Card>
             </div>
         );
     }
