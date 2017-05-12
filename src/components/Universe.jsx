@@ -7,9 +7,9 @@ import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
 import {listTodos, toggleAndList} from 'states/todo-actions.js';
 
-import './Forecast.css';
+import './Universe.css';
 
-class Forecast extends React.Component {
+class Universe extends React.Component {
     static propTypes = {
         list: PropTypes.array,
         masking: PropTypes.bool,
@@ -64,4 +64,4 @@ class Forecast extends React.Component {
 export default connect(state => ({
     ...state.todo,
     searchText: state.searchText
-}))(Forecast);
+}))(Universe);

@@ -16,7 +16,7 @@ import SettingIcon from 'material-ui/svg-icons/action/settings';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Forecast from 'components/Forecast.jsx';
+import Universe from 'components/Universe.jsx';
 import {setSearchText} from 'states/post-actions.js';
 import {toggleNavbar} from 'states/main-actions.js';
 
@@ -73,7 +73,7 @@ class Main extends React.Component {
                             </Navbar>
                         </div>
                     </div>
-                    <Forecast />
+                    <Universe />
                     <div className='footer'>
                         T10.SS17
                     </div>
