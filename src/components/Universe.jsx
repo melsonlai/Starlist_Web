@@ -7,7 +7,7 @@ import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
 import {listTodos, toggleAndList} from 'states/todo-actions.js';
 
-import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
 
 import './Universe.css';
 
@@ -45,8 +45,9 @@ class Universe extends React.Component {
             <div className='forecast'>
                 <div className='todos'>
                     <div className='label d-flex justify-content-between align-items-end'>
-                        <h4><i className='fa fa-tags' aria-hidden="true"></i>&nbsp;&nbsp;Todos</h4>
-                        <div><Checkbox checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly} />&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>Unaccomplished</Label></div>
+						<div>
+	                        <Toggle checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly} label="Unaccomplished"/>
+						</div>
                     </div>
                     <TodoForm />
                     <TodoList todos={this.props.todos} />{
