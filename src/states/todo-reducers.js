@@ -8,15 +8,20 @@ const initTodoFormState = {
 };
 export function todoForm(state = initTodoFormState, action) {
     switch (action.type) {
-        case '@TODO_FORM/INPUT':
+        case '@TODO_FORM/INPUT_TITLE':
             return {
                 ...state,
-                inputValue: action.value
+                inputTitleValue: action.titleValue
             };
-        case '@TODO_FORM/INPUT_DANGER':
+        case '@TODO_FORM/INPUT_TITLE_DANGER':
             return {
                 ...state,
-                inputDanger: action.danger
+                inputTitleDanger: action.titleDanger
+            };
+		case '@TODO_FORM/INPUT_DESCRIPT':
+            return {
+                ...state,
+                inputDescriptValue: action.descriptValue
             };
         case '@TODO_FORM/TOGGLE_MOOD':
             return {

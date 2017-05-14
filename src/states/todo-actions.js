@@ -6,17 +6,24 @@ import {
 
 /*  Todo Form */
 
-export function input(value) {
+export function inputTitle(titleValue) {
     return {
-        type: '@TODO_FORM/INPUT',
-        value
+        type: '@TODO_FORM/INPUT_TITLE',
+        titleValue
     };
 };
 
-export function inputDanger(danger) {
+export function inputTitleDanger(titleDanger) {
     return {
-        type: '@TODO_FORM/INPUT_DANGER',
-        danger
+        type: '@TODO_FORM/INPUT_TITLE_DANGER',
+        titleDanger
+    };
+};
+
+export function inputDescript(descriptValue) {
+    return {
+        type: '@TODO_FORM/INPUT_DESCRIPT',
+        descriptValue
     };
 };
 
@@ -77,11 +84,11 @@ export function listTodos(searchText, loading = false) {
     }
 }
 
-export function createTodo(text) {
+export function createTodo(title, descript) {
     return (dispatch, getState) => {
         dispatch(startLoading());
 
-        return createTodoFromApi(text).then(() => {
+        return createTodoFromApi(title, descript).then(() => {
             dispatch(listTodos(getState().searchText, true));
         }).catch(err => {
             console.error('Error creating todos', err);
