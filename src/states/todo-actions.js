@@ -27,6 +27,13 @@ export function inputDescript(descriptValue) {
     };
 };
 
+export function inputTag(tagValue) {
+    return{
+        type: '@TODO_FORM/INPUT_TAG',
+        tagValue
+    }
+}
+
 export function setImportance(inputImportance) {
 	return {
 		type: "@TODO_FORM/SET_IMPORTANCE",

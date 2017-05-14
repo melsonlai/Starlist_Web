@@ -56,6 +56,7 @@ class TodoForm extends React.Component {
         const {
 			inputTitleValue,
 			inputDescriptValue,
+			inputTagValue,
 			inputImportance,
 			inputDeadlineDate,
 			inputFullDayDeadline,
@@ -73,7 +74,7 @@ class TodoForm extends React.Component {
 						<TextField type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And get lots of bugs" floatingLabelText="Description" floatingLabelFixed multiLine/>
 					</CardText>
 					<CardText expandable>
-						<TextField type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="Driving_Crazy" floatingLabelText="Tags" floatingLabelFixed multiLine/>
+						<TextField type='textarea' value={inputTagValue} onChange={this.handleInputTagChange} hintText="Driving_Crazy" floatingLabelText="Tags" floatingLabelFixed multiLine/>
 					</CardText>
 					<Divider />
 					<CardText expandable>
@@ -107,6 +108,11 @@ class TodoForm extends React.Component {
         const text = e.target.value;
         this.props.dispatch(inputDescript(text));
     }
+
+	handleInputTagChange(e) {
+		const text = e.target.value;
+		this.props.dispatch(inputTag(text));
+	}
 
     handlePost() {
         const {inputTitleValue, inputDescriptValue, inputImportance, inputDeadlineDate, inputFullDayDeadline, inputDeadlineTime, dispatch} = this.props;

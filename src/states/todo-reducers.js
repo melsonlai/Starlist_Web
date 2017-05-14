@@ -2,6 +2,8 @@
 
 const initTodoFormState = {
     inputValue: '',
+    inputDescriptValue: '',
+    inputTagValue: '',
     inputDanger: false,
     moodToggle: false,
     mood: 'na'
@@ -23,6 +25,11 @@ export function todoForm(state = initTodoFormState, action) {
                 ...state,
                 inputDescriptValue: action.descriptValue
             };
+        case '@TODO_FORM/INPUT_TAG':
+            return{
+                ...state,
+                inputTagValue: action.tagValue
+            }
 		case "@TODO_FORM/SET_IMPORTANCE":
 			return {
 				...state,
