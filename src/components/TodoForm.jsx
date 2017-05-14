@@ -72,6 +72,9 @@ class TodoForm extends React.Component {
 					<CardText expandable>
 						<TextField type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And get lots of bugs" floatingLabelText="Description" floatingLabelFixed multiLine/>
 					</CardText>
+					<CardText expandable>
+						<TextField type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="Driving_Crazy" floatingLabelText="Tags" floatingLabelFixed multiLine/>
+					</CardText>
 					<Divider />
 					<CardText expandable>
 						<DatePicker floatingLabelText="Due Date" floatingLabelFixed value={inputDeadlineDate} onChange={this.handleDeadlineDateChange} />
