@@ -6,10 +6,8 @@ import 'babel-polyfill';
 const todoKey = 'todos';
 const todoBaseUrl = 'http://weathermood-10.ap-northeast-1.elasticbeanstalk.com/api';
 
-if (localStorage.getItem(todoKey) == null)
-	localStorage.setItem(todoKey, JSON.stringify([]));
-
 export function listTodos(unaccomplishedOnly = false, searchText = '') {
+	if (localStorage.getItem(todoKey) == null) localStorage.setItem(todoKey, JSON.stringify([]));
 	return new Promise((resolve, reject) => {
 		let todos = JSON.parse(localStorage.getItem(todoKey));
 
@@ -53,6 +51,7 @@ export function createTodo(title, descript, importance, date, isFullDay, time) {
 			content: descript,
 			deadline: deadline.unix(),
 			importance: importance,
+			starID: uuid(),
 			ts: moment().unix(),
 			doneTs: null
 		};

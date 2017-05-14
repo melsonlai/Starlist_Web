@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {
-    ListGroup,
-    ListGroupItem
-} from 'reactstrap';
 
 import TodoItem from 'components/TodoItem.jsx';
-import './TodoList.css';
+
+import {List, ListItem} from 'material-ui/List';
+import Checkbox from "material-ui/Checkbox";
 
 class TodoList extends React.Component {
     static propTypes = {
@@ -22,21 +20,21 @@ class TodoList extends React.Component {
         const {todos} = this.props;
 
         let children = (
-            <ListGroupItem className='empty d-flex justify-content-center align-items-center'>
-                <div className='empty-text'>All todos are accomplished.<br />Anything else?</div>
-            </ListGroupItem>
+			<ListItem className='d-flex justify-content-center align-items-center'>
+                <div>All todos are accomplished.<br />Anything else?</div>
+            </ListItem>
         );
         if (todos.length) {
             children = todos.map(t => (
-                <ListGroupItem key={t.id} action={!t.doneTs}>
+                <ListItem key={t.id}>
                     <TodoItem {...t} />
-                </ListGroupItem>
+                </ListItem>
             ));
         }
 
         return (
-            <div className='todo-list'>
-                <ListGroup>{children}</ListGroup>
+            <div>
+                <List>{children}</List>
             </div>
         );
     }

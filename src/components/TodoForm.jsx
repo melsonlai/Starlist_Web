@@ -23,13 +23,6 @@ import {
 	setDeadlineTime
 } from 'states/todo-actions.js';
 
-//import './TodoForm.css';
-
-const Add_Button ={
-	margin: 18,
-};
-
-
 class TodoForm extends React.Component {
     static propTypes = {
         inputTitleValue: PropTypes.string,
@@ -72,10 +65,10 @@ class TodoForm extends React.Component {
             <div className='post-form'>
                 <Card color='info' className={`d-flex flex-column flex-sm-row justify-content-center`}>
 					<CardText>
-						<TextField className='input' type='textarea' value={inputTitleValue}  onChange={this.handleInputTitleChange} hintText="Coding at 4:00a.m....." floatingLabelText="What's next to do?" floatingLabelFixed errorText={inputTitleDanger}/>
+						<TextField type='textarea' value={inputTitleValue}  onChange={this.handleInputTitleChange} hintText="Coding at 4:00a.m....." floatingLabelText="What's next to do?" floatingLabelFixed errorText={inputTitleDanger}/>
 					</CardText>
 					<CardText>
-						<TextField className='input' type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And get lots of bugs" floatingLabelText="Description" floatingLabelFixed/>
+						<TextField type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And get lots of bugs" floatingLabelText="Description" floatingLabelFixed/>
 					</CardText>
 					<CardText>
 						<DatePicker hintText="On what date do you want your star?" value={inputDeadlineDate} onChange={this.handleDeadlineDateChange} />
@@ -89,7 +82,7 @@ class TodoForm extends React.Component {
 				        </DropDownMenu>
 					</CardText>
 					<CardActions>
-						<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={Add_Button}/>
+						<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={{margin: 18}}/>
 					</CardActions>
                 </Card>
             </div>
