@@ -5,13 +5,13 @@ import {connect} from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardText, CardActions, CardTitle} from 'material-ui/Card';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import Toggle from "material-ui/Toggle";
 import TimePicker from 'material-ui/TimePicker';
+import Divider from "material-ui/Divider";
 
-import {getMoodIcon} from 'utilities/weather.js';
 import {
 	createTodo,
 	inputTitle,
@@ -22,6 +22,8 @@ import {
 	setFullDayDeadline,
 	setDeadlineTime
 } from 'states/todo-actions.js';
+
+import "./TodoForm.css";
 
 class TodoForm extends React.Component {
     static propTypes = {
@@ -62,24 +64,26 @@ class TodoForm extends React.Component {
         const inputTitleDanger = this.props.inputTitleDanger ? "Title is required" : "";
 
         return (
-            <div className='post-form'>
-                <Card color='info' className={`d-flex flex-column flex-sm-row justify-content-center`}>
-					<CardTitle actAsExpander showExpandableButton>
+            <div className='todo-form'>
+                <Card color='info' className={`d-flex flex-sm-row justify-content-center`}>
+					<CardTitle showExpandableButton>
 						<TextField type='textarea' value={inputTitleValue}  onChange={this.handleInputTitleChange} hintText="Coding at 4:00a.m....." floatingLabelText="What's next to do?" floatingLabelFixed errorText={inputTitleDanger}/>
 					</CardTitle>
 					<CardText expandable>
-						<TextField type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And get lots of bugs" floatingLabelText="Description" floatingLabelFixed/>
+						<TextField type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And get lots of bugs" floatingLabelText="Description" floatingLabelFixed multiLine/>
 					</CardText>
+					<Divider />
 					<CardText expandable>
-						<DatePicker hintText="On what date do you want your star?" value={inputDeadlineDate} onChange={this.handleDeadlineDateChange} />
+						<DatePicker floatingLabelText="Due Date" floatingLabelFixed value={inputDeadlineDate} onChange={this.handleDeadlineDateChange} />
 						<Toggle label="Full Day" toggled={inputFullDayDeadline} onToggle={this.handleFullDayDeadline} />
-						<TimePicker hintText="And when on that day do you wish?" format="24hr" value={inputDeadlineTime} onChange={this.handleDeadlineTimeChange} />
+						<TimePicker floatingLabelText="Due Time" floatingLabelFixed format="24hr" value={inputDeadlineTime} onChange={this.handleDeadlineTimeChange} />
 					</CardText>
+					<Divider />
 					<CardText expandable>
-						<DropDownMenu value={inputImportance} onChange={this.handleImportanceChange}>
+						<SelectField floatingLabelText="Importance" floatingLabelFixed value={inputImportance} onChange={this.handleImportanceChange}>
 				          <MenuItem value={1} primaryText="Doesn't Matter" />
 				          <MenuItem value={2} primaryText="Important" />
-				        </DropDownMenu>
+					  </SelectField>
 					</CardText>
 					<CardActions expandable>
 						<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={{margin: 18}}/>

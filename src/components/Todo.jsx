@@ -43,11 +43,7 @@ class Todo extends React.Component {
 
         return (
             <div className='todos'>
-                <div className='label d-flex justify-content-between align-items-end'>
-					<div>
-                        <Toggle toggled={this.props.unaccomplishedOnly} onToggle={this.toggleUnaccomplishedOnly} label="Unaccomplished"/>
-					</div>
-                </div>
+                <Toggle className='label d-flex justify-content-between align-items-end' toggled={this.props.unaccomplishedOnly} onToggle={this.toggleUnaccomplishedOnly} label="Unaccomplished"/>
                 <TodoForm />
                 <TodoList todos={this.props.todos} />{
                     this.props.todoLoading &&
