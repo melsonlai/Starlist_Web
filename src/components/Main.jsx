@@ -16,7 +16,7 @@ import SettingIcon from 'material-ui/svg-icons/action/settings';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Universe from 'components/Universe.jsx';
+import Todo from 'components/Todo.jsx';
 import {setSearchText} from 'states/post-actions.js';
 import {toggleNavbar} from 'states/main-actions.js';
 
@@ -73,7 +73,7 @@ class Main extends React.Component {
                             </Navbar>
                         </div>
                     </div>
-                    <Universe />
+                    <Todo />
                     <div className='footer'>
                         T10.SS17
                     </div>

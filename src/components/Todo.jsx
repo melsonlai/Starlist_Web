@@ -9,9 +9,9 @@ import {listTodos, toggleAndList} from 'states/todo-actions.js';
 
 import Toggle from 'material-ui/Toggle';
 
-import './Universe.css';
+import './Todo.css';
 
-class Universe extends React.Component {
+class Todo extends React.Component {
     static propTypes = {
         list: PropTypes.array,
         masking: PropTypes.bool,
@@ -42,19 +42,17 @@ class Universe extends React.Component {
         document.querySelector('.weather-bg .mask').className = `mask ${this.props.masking ? 'masking' : ''}`;
 
         return (
-            <div className='forecast'>
-                <div className='todos'>
-                    <div className='label d-flex justify-content-between align-items-end'>
-						<div>
-	                        <Toggle toggled={this.props.unaccomplishedOnly} onToggle={this.toggleUnaccomplishedOnly} label="Unaccomplished"/>
-						</div>
-                    </div>
-                    <TodoForm />
-                    <TodoList todos={this.props.todos} />{
-                        this.props.todoLoading &&
-                        <Alert color='warning' className='loading'>Loading...</Alert>
-                    }
+            <div className='todos'>
+                <div className='label d-flex justify-content-between align-items-end'>
+					<div>
+                        <Toggle toggled={this.props.unaccomplishedOnly} onToggle={this.toggleUnaccomplishedOnly} label="Unaccomplished"/>
+					</div>
                 </div>
+                <TodoForm />
+                <TodoList todos={this.props.todos} />{
+                    this.props.todoLoading &&
+                    <Alert color='warning' className='loading'>Loading...</Alert>
+                }
             </div>
         );
     }
@@ -67,4 +65,4 @@ class Universe extends React.Component {
 export default connect(state => ({
     ...state.todo,
     searchText: state.searchText
-}))(Universe);
+}))(Todo);
