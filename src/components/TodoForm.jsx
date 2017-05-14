@@ -27,7 +27,6 @@ class TodoForm extends React.Component {
         super(props);
 
         this.inputEl = null;
-        this.moodToggleEl = null;
 
         this.handleInputChange = this.handleInputChange.bind(this);
 
@@ -41,8 +40,6 @@ class TodoForm extends React.Component {
         return (
             <div className='post-form'>
                 <Card color='info' className={`d-flex flex-column flex-sm-row justify-content-center ${inputDanger}`}>
-                    <div className='mood align-self-start'>
-                    </div>
 					<TextField className='input' type='textarea' getRef={el => {this.inputEl = el}} value={this.props.inputValue} onChange={this.handleInputChange} hintText="Coding At 4:00A.M....." floatingLabelText="What's next to do?"/>
 
 					<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={Add_Button}/>
@@ -65,7 +62,7 @@ class TodoForm extends React.Component {
             dispatch(inputDanger(true));
             return;
         }
-//        dispatch(createTodo(mood, inputValue));
+        dispatch(createTodo(inputValue));
         dispatch(input(''));
     }
 }

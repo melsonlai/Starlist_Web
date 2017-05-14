@@ -6,8 +6,26 @@ import 'babel-polyfill';
 const todoKey = 'todos';
 const todoBaseUrl = 'http://weathermood-10.ap-northeast-1.elasticbeanstalk.com/api';
 
+if (localStorage.getItem(todoKey) == null)
+	localStorage.setItem(todoKey, JSON.stringify([]));
+
 export function listTodos(unaccomplishedOnly = false, searchText = '') {
-	let url = `${todoBaseUrl}/todos`;
+	return new Promise((resolve, reject) => {
+		let todos = JSON.parse(localStorage.getItem(todoKey));
+
+		if (unaccomplishedOnly) {
+			todos = todos.filter(t => {
+				return !t.doneTs;
+			});
+		}
+		if (searchText) {
+			todos = todos.filter(t => {
+				return t.text.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
+			});
+		}
+		resolve(todos);
+	});
+/*	let url = `${todoBaseUrl}/${todoKey}`;
 	if (searchText)
 		url += `?searchText=${searchText}`;
 	if (unaccomplishedOnly) {
@@ -23,11 +41,23 @@ export function listTodos(unaccomplishedOnly = false, searchText = '') {
 			throw new Error(`Unexpected response code: ${res.status}`);
 
 		return res.data;
-	});
+	});*/
 }
 
-export function createTodo(mood, text) {
-	let url = `${todoBaseUrl}/todos`;
+export function createTodo(text) {
+	return listTodos().then(todos => {
+		const newTodo = {
+			id: uuid(),
+			text: text,
+			ts: moment().unix(),
+			doneTs: null
+		};
+		todos.push(newTodo);
+		localStorage.setItem(todoKey, JSON.stringify(todos));
+
+		return newTodo;
+	});
+/*	let url = `${todoBaseUrl}/${todoKey}`;
 
     console.log(`Making POST request to: ${url}`);
 
@@ -39,11 +69,25 @@ export function createTodo(mood, text) {
             throw new Error(`Unexpected response code: ${res.status}`);
 
         return res.data;
-    });
+    });*/
 }
 
 export function accomplishTodo(id) {
-	let url = `${todoBaseUrl}/todos/${id}`;
+	return listTodos().then(todos => {
+		let rtn;
+
+		for(let t of todos) {
+			if(t.id === id) {
+				t.doneTs = moment().unix();
+				rtn = t;
+				break;
+			}
+		}
+		localStorage.setItem(todoKey, JSON.stringify(todos));
+
+		return rtn;
+	});
+/*	let url = `${todoBaseUrl}/${todoKey}/${id}`;
 
     console.log(`Making POST request to: ${url}`);
 
@@ -52,5 +96,5 @@ export function accomplishTodo(id) {
             throw new Error(`Unexpected response code: ${res.status}`);
 
         return res.data;
-    });
+    });*/
 }

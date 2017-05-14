@@ -77,11 +77,11 @@ export function listTodos(searchText, loading = false) {
     }
 }
 
-export function createTodo(mood, text) {
+export function createTodo(text) {
     return (dispatch, getState) => {
         dispatch(startLoading());
 
-        return createTodoFromApi(mood, text).then(() => {
+        return createTodoFromApi(text).then(() => {
             dispatch(listTodos(getState().searchText, true));
         }).catch(err => {
             console.error('Error creating todos', err);

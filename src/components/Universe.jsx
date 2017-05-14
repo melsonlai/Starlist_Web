@@ -28,12 +28,12 @@ class Universe extends React.Component {
     }
 
     componentDidMount() {
-//        this.props.dispatch(listTodos(this.props.searchText));
+        this.props.dispatch(listTodos(this.props.searchText));
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchText !== this.props.searchText) {
-//            this.props.dispatch(listTodos(nextProps.searchText));
+            this.props.dispatch(listTodos(nextProps.searchText));
         }
     }
 
