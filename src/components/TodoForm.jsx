@@ -23,8 +23,6 @@ import {
 	setDeadlineTime
 } from 'states/todo-actions.js';
 
-import "./TodoForm.css";
-
 class TodoForm extends React.Component {
     static propTypes = {
         inputTitleValue: PropTypes.string,
@@ -50,6 +48,8 @@ class TodoForm extends React.Component {
 
 	componentWillMount() {
 		this.props.dispatch(setImportance(1));
+		this.props.dispatch(setDeadlineDate(new Date()));
+		this.props.dispatch(setDeadlineTime(new Date()));
 	}
 
     render() {
@@ -76,7 +76,7 @@ class TodoForm extends React.Component {
 					<CardText expandable>
 						<DatePicker floatingLabelText="Due Date" floatingLabelFixed value={inputDeadlineDate} onChange={this.handleDeadlineDateChange} />
 						<Toggle label="Full Day" toggled={inputFullDayDeadline} onToggle={this.handleFullDayDeadline} />
-						<TimePicker floatingLabelText="Due Time" floatingLabelFixed format="24hr" value={inputDeadlineTime} onChange={this.handleDeadlineTimeChange} />
+						<TimePicker floatingLabelText="Due Time" floatingLabelFixed format="24hr" value={inputDeadlineTime} onChange={this.handleDeadlineTimeChange} disabled={inputFullDayDeadline}/>
 					</CardText>
 					<Divider />
 					<CardText expandable>
@@ -126,9 +126,6 @@ class TodoForm extends React.Component {
 
 	handleFullDayDeadline(e, isChecked) {
 		this.props.dispatch(setFullDayDeadline(isChecked));
-		if (isChecked) {
-			this.props.dispatch(setDeadlineTime(null));
-		}
 	}
 
 	handleDeadlineTimeChange(e, time) {
