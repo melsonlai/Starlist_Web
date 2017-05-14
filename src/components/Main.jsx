@@ -15,6 +15,7 @@ import IconButton from 'material-ui/IconButton';
 import SettingIcon from 'material-ui/svg-icons/action/settings';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import TextField from 'material-ui/TextField';
 
 import Todo from 'components/Todo.jsx';
 import {setSearchText} from 'states/post-actions.js';
@@ -53,7 +54,8 @@ class Main extends React.Component {
                                 <NavbarBrand className='text-info' href="/">Starlist</NavbarBrand>
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
                                     <div className='search ml-auto'>
-                                        <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>{
+                                        <TextField className='ml-auto' hintText="Search" onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}/>
+                                        {
                                             this.props.searchText &&
                                             <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
                                         }
