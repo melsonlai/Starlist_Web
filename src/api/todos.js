@@ -44,12 +44,13 @@ export function listTodos(unaccomplishedOnly = false, searchText = '') {
 	});*/
 }
 
-export function createTodo(title, descript) {
+export function createTodo(title, descript, importance) {
 	return listTodos().then(todos => {
 		const newTodo = {
 			id: uuid(),
 			title: title,
-			content: descript, 
+			content: descript,
+			importance: importance, 
 			ts: moment().unix(),
 			doneTs: null
 		};

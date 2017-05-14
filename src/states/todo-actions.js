@@ -27,6 +27,13 @@ export function inputDescript(descriptValue) {
     };
 };
 
+export function setImportance(inputImportance) {
+	return {
+		type: "@TODO_FORM/SET_IMPORTANCE",
+		inputImportance
+	};
+}
+
 export function toggleMood() {
     return {
         type: '@TODO_FORM/TOGGLE_MOOD'

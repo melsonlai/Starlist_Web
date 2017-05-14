@@ -5,9 +5,11 @@ import {connect} from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardText, CardActions} from 'material-ui/Card';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 import {getMoodIcon} from 'utilities/weather.js';
-import {createTodo, inputTitle, inputTitleDanger, inputDescript} from 'states/todo-actions.js';
+import {createTodo, inputTitle, inputTitleDanger, inputDescript, setImportance} from 'states/todo-actions.js';
 
 import './TodoForm.css';
 
@@ -21,6 +23,7 @@ class TodoForm extends React.Component {
         inputTitleValue: PropTypes.string,
         inputTitleDanger: PropTypes.bool,
 		inputDescriptValue: PropTypes.string,
+		inputImportance: PropTypes.number,
         dispatch: PropTypes.func
     };
 
@@ -29,10 +32,15 @@ class TodoForm extends React.Component {
         this.handleInputTitleChange = this.handleInputTitleChange.bind(this);
 		this.handleInputDescriptChange = this.handleInputDescriptChange.bind(this);
         this.handlePost = this.handlePost.bind(this);
+		this.handleImportanceChange = this.handleImportanceChange.bind(this);
     }
 
+	componentWillMount() {
+		this.props.dispatch(setImportance(1));
+	}
+
     render() {
-        const {inputTitleValue, inputDescriptValue} = this.props;
+        const {inputTitleValue, inputDescriptValue, inputImportance} = this.props;
         const inputTitleDanger = this.props.inputTitleDanger ? "Title is required" : "";
 
         return (
@@ -43,6 +51,12 @@ class TodoForm extends React.Component {
 					</CardText>
 					<CardText>
 						<TextField className='input' type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And Get Lots of Bugs" floatingLabelText="Description" floatingLabelFixed/>
+					</CardText>
+					<CardText>
+						<DropDownMenu value={inputImportance} onChange={this.handleImportanceChange}>
+				          <MenuItem value={1} primaryText="Doesn't Matter" />
+				          <MenuItem value={2} primaryText="Important" />
+				        </DropDownMenu>
 					</CardText>
 					<CardActions>
 						<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={Add_Button}/>
@@ -74,6 +88,10 @@ class TodoForm extends React.Component {
         dispatch(inputTitle(''));
 		dispatch(inputDescript(''));
     }
+
+	handleImportanceChange(e, key, val) {
+		this.props.dispatch(setImportance(val));
+	}
 }
 
 export default connect(state => ({

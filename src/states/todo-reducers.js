@@ -23,6 +23,11 @@ export function todoForm(state = initTodoFormState, action) {
                 ...state,
                 inputDescriptValue: action.descriptValue
             };
+		case "@TODO_FORM/SET_IMPORTANCE":
+			return {
+				...state,
+				inputImportance: action.inputImportance
+			};
         case '@TODO_FORM/TOGGLE_MOOD':
             return {
                 ...state,
