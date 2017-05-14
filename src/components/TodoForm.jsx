@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Card, CardText, CardActions} from 'material-ui/Card';
+import {Card, CardText, CardActions, CardTitle} from 'material-ui/Card';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
@@ -64,24 +64,24 @@ class TodoForm extends React.Component {
         return (
             <div className='post-form'>
                 <Card color='info' className={`d-flex flex-column flex-sm-row justify-content-center`}>
-					<CardText>
+					<CardTitle actAsExpander showExpandableButton>
 						<TextField type='textarea' value={inputTitleValue}  onChange={this.handleInputTitleChange} hintText="Coding at 4:00a.m....." floatingLabelText="What's next to do?" floatingLabelFixed errorText={inputTitleDanger}/>
-					</CardText>
-					<CardText>
+					</CardTitle>
+					<CardText expandable>
 						<TextField type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And get lots of bugs" floatingLabelText="Description" floatingLabelFixed/>
 					</CardText>
-					<CardText>
+					<CardText expandable>
 						<DatePicker hintText="On what date do you want your star?" value={inputDeadlineDate} onChange={this.handleDeadlineDateChange} />
 						<Toggle label="Full Day" toggled={inputFullDayDeadline} onToggle={this.handleFullDayDeadline} />
 						<TimePicker hintText="And when on that day do you wish?" format="24hr" value={inputDeadlineTime} onChange={this.handleDeadlineTimeChange} />
 					</CardText>
-					<CardText>
+					<CardText expandable>
 						<DropDownMenu value={inputImportance} onChange={this.handleImportanceChange}>
 				          <MenuItem value={1} primaryText="Doesn't Matter" />
 				          <MenuItem value={2} primaryText="Important" />
 				        </DropDownMenu>
 					</CardText>
-					<CardActions>
+					<CardActions expandable>
 						<RaisedButton label="Add" primary={true} onClick={this.handlePost} style={{margin: 18}}/>
 					</CardActions>
                 </Card>
