@@ -54,7 +54,7 @@ class Main extends React.Component {
                                 <NavbarBrand className='text-info' href="/">Starlist</NavbarBrand>
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
                                     <div className='search ml-auto'>
-                                        <TextField className='ml-auto' hintText="Search" onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}/>
+                                        <TextField className='ml-auto TextField' hintText="Search" onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}/>
                                         {
                                             this.props.searchText &&
                                             <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>

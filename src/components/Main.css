@@ -17,6 +17,10 @@
     padding-right: 1.5rem;
 }
 
+#Search_Bar{
+    width: 1rem;
+}
+
 .main .search i {
     position: absolute;
     top: 0.25rem;
