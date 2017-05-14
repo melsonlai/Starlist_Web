@@ -46,7 +46,7 @@ class Universe extends React.Component {
                 <div className='todos'>
                     <div className='label d-flex justify-content-between align-items-end'>
 						<div>
-	                        <Toggle checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly} label="Unaccomplished"/>
+	                        <Toggle toggled={this.props.unaccomplishedOnly} onToggle={this.toggleUnaccomplishedOnly} label="Unaccomplished"/>
 						</div>
                     </div>
                     <TodoForm />
@@ -59,7 +59,7 @@ class Universe extends React.Component {
         );
     }
 
-    toggleUnaccomplishedOnly() {
+    toggleUnaccomplishedOnly(e, isChecked) {
         this.props.dispatch(toggleAndList());
     }
 }

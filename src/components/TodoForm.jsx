@@ -7,11 +7,23 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardText, CardActions} from 'material-ui/Card';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import DatePicker from 'material-ui/DatePicker';
+import Toggle from "material-ui/Toggle";
+import TimePicker from 'material-ui/TimePicker';
 
 import {getMoodIcon} from 'utilities/weather.js';
-import {createTodo, inputTitle, inputTitleDanger, inputDescript, setImportance} from 'states/todo-actions.js';
+import {
+	createTodo,
+	inputTitle,
+	inputTitleDanger,
+	inputDescript,
+	setImportance,
+	setDeadlineDate,
+	setFullDayDeadline,
+	setDeadlineTime
+} from 'states/todo-actions.js';
 
-import './TodoForm.css';
+//import './TodoForm.css';
 
 const Add_Button ={
 	margin: 18,
@@ -24,6 +36,9 @@ class TodoForm extends React.Component {
         inputTitleDanger: PropTypes.bool,
 		inputDescriptValue: PropTypes.string,
 		inputImportance: PropTypes.number,
+		inputFullDayDeadline: PropTypes.bool,
+		inputDeadlineDate: PropTypes.instanceOf(Date),
+		inputDeadlineTime: PropTypes.instanceOf(Date),
         dispatch: PropTypes.func
     };
 
@@ -33,6 +48,9 @@ class TodoForm extends React.Component {
 		this.handleInputDescriptChange = this.handleInputDescriptChange.bind(this);
         this.handlePost = this.handlePost.bind(this);
 		this.handleImportanceChange = this.handleImportanceChange.bind(this);
+		this.handleDeadlineDateChange = this.handleDeadlineDateChange.bind(this);
+		this.handleFullDayDeadline = this.handleFullDayDeadline.bind(this);
+		this.handleDeadlineTimeChange = this.handleDeadlineTimeChange.bind(this);
     }
 
 	componentWillMount() {
@@ -40,17 +58,29 @@ class TodoForm extends React.Component {
 	}
 
     render() {
-        const {inputTitleValue, inputDescriptValue, inputImportance} = this.props;
+        const {
+			inputTitleValue,
+			inputDescriptValue,
+			inputImportance,
+			inputDeadlineDate,
+			inputFullDayDeadline,
+			inputDeadlineTime
+		} = this.props;
         const inputTitleDanger = this.props.inputTitleDanger ? "Title is required" : "";
 
         return (
             <div className='post-form'>
                 <Card color='info' className={`d-flex flex-column flex-sm-row justify-content-center`}>
 					<CardText>
-						<TextField className='input' type='textarea' value={inputTitleValue}  onChange={this.handleInputTitleChange} hintText="Coding At 4:00A.M....." floatingLabelText="What's next to do?" floatingLabelFixed errorText={inputTitleDanger}/>
+						<TextField className='input' type='textarea' value={inputTitleValue}  onChange={this.handleInputTitleChange} hintText="Coding at 4:00a.m....." floatingLabelText="What's next to do?" floatingLabelFixed errorText={inputTitleDanger}/>
 					</CardText>
 					<CardText>
-						<TextField className='input' type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And Get Lots of Bugs" floatingLabelText="Description" floatingLabelFixed/>
+						<TextField className='input' type='textarea' value={inputDescriptValue} onChange={this.handleInputDescriptChange} hintText="And get lots of bugs" floatingLabelText="Description" floatingLabelFixed/>
+					</CardText>
+					<CardText>
+						<DatePicker hintText="On what date do you want your star?" value={inputDeadlineDate} onChange={this.handleDeadlineDateChange} />
+						<Toggle label="Full Day" toggled={inputFullDayDeadline} onToggle={this.handleFullDayDeadline} />
+						<TimePicker hintText="And when on that day do you wish?" format="24hr" value={inputDeadlineTime} onChange={this.handleDeadlineTimeChange} />
 					</CardText>
 					<CardText>
 						<DropDownMenu value={inputImportance} onChange={this.handleImportanceChange}>
@@ -79,18 +109,33 @@ class TodoForm extends React.Component {
     }
 
     handlePost() {
-        const {inputTitleValue, inputDescriptValue, dispatch} = this.props;
+        const {inputTitleValue, inputDescriptValue, inputImportance, inputDeadlineDate, inputFullDayDeadline, inputDeadlineTime, dispatch} = this.props;
         if (!inputTitleValue) {
             dispatch(inputTitleDanger(true));
             return;
         }
-        dispatch(createTodo(inputTitleValue, inputDescriptValue));
+        dispatch(createTodo(inputTitleValue, inputDescriptValue, inputImportance, inputDeadlineDate, inputFullDayDeadline, inputDeadlineTime));
         dispatch(inputTitle(''));
 		dispatch(inputDescript(''));
     }
 
 	handleImportanceChange(e, key, val) {
 		this.props.dispatch(setImportance(val));
+	}
+
+	handleDeadlineDateChange(e, date) {
+		this.props.dispatch(setDeadlineDate(date));
+	}
+
+	handleFullDayDeadline(e, isChecked) {
+		this.props.dispatch(setFullDayDeadline(isChecked));
+		if (isChecked) {
+			this.props.dispatch(setDeadlineTime(null));
+		}
+	}
+
+	handleDeadlineTimeChange(e, time) {
+		this.props.dispatch(setDeadlineTime(time));
 	}
 }
 

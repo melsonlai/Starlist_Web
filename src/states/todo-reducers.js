@@ -28,6 +28,21 @@ export function todoForm(state = initTodoFormState, action) {
 				...state,
 				inputImportance: action.inputImportance
 			};
+		case "@TODO_FORM/SET_DEADLINE_DATE":
+			return {
+				...state,
+				inputDeadlineDate: action.inputDeadlineDate
+			};
+		case "@TODO_FORM/SET_FULL_DAY_DEADLINE":
+			return {
+				...state,
+				inputFullDayDeadline: action.inputFullDayDeadline
+			};
+		case "@TODO_FORM/SET_DEADLINE_TIME":
+			return {
+				...state,
+				inputDeadlineTime: action.inputDeadlineTime
+			};
         case '@TODO_FORM/TOGGLE_MOOD':
             return {
                 ...state,

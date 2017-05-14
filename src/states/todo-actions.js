@@ -34,6 +34,27 @@ export function setImportance(inputImportance) {
 	};
 }
 
+export function setDeadlineDate(inputDeadlineDate) {
+	return {
+		type: "@TODO_FORM/SET_DEADLINE_DATE",
+		inputDeadlineDate
+	};
+}
+
+export function setFullDayDeadline(isChecked) {
+	return {
+		type: "@TODO_FORM/SET_FULL_DAY_DEADLINE",
+		inputFullDayDeadline: isChecked
+	};
+}
+
+export function setDeadlineTime(time) {
+	return {
+		type: "@TODO_FORM/SET_DEADLINE_TIME",
+		inputDeadlineTime: time
+	};
+}
+
 export function toggleMood() {
     return {
         type: '@TODO_FORM/TOGGLE_MOOD'
@@ -91,11 +112,11 @@ export function listTodos(searchText, loading = false) {
     }
 }
 
-export function createTodo(title, descript) {
+export function createTodo(title, descript, importance, date, isFullDay, time) {
     return (dispatch, getState) => {
         dispatch(startLoading());
 
-        return createTodoFromApi(title, descript).then(() => {
+        return createTodoFromApi(title, descript, importance, date, isFullDay, time).then(() => {
             dispatch(listTodos(getState().searchText, true));
         }).catch(err => {
             console.error('Error creating todos', err);

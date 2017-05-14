@@ -44,13 +44,15 @@ export function listTodos(unaccomplishedOnly = false, searchText = '') {
 	});*/
 }
 
-export function createTodo(title, descript, importance) {
+export function createTodo(title, descript, importance, date, isFullDay, time) {
 	return listTodos().then(todos => {
+		const deadline = isFullDay ? (moment(date).add(1, 'd')) : (moment(date).add(time.getHours(), 'h').add(time.getMinutes(), 'm'));
 		const newTodo = {
 			id: uuid(),
 			title: title,
 			content: descript,
-			importance: importance, 
+			deadline: deadline.unix(),
+			importance: importance,
 			ts: moment().unix(),
 			doneTs: null
 		};
