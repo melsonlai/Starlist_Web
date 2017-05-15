@@ -15,6 +15,7 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 
 import Dialog from 'material-ui/Dialog';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -39,7 +40,7 @@ import {
 
 import Todo from 'components/Todo.jsx';
 import {setSearchText} from 'states/post-actions.js';
-import {toggleNavbar} from 'states/main-actions.js';
+import {toggleNavbar, openDialog, closeDialog} from 'states/main-actions.js';
 
 import './Main.css';
 
@@ -83,7 +84,8 @@ class Main extends React.Component {
         searchText: PropTypes.string,
         navbarToggle: PropTypes.bool,
         store: PropTypes.object,
-        dispatch: PropTypes.func
+        dispatch: PropTypes.func,
+        dialogOpen: PropTypes.bool
     };
 
     constructor(props) {
@@ -94,9 +96,25 @@ class Main extends React.Component {
         this.handleNavbarToggle = this.handleNavbarToggle.bind(this);
         this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
         this.handleClearSearch = this.handleClearSearch.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     render() {
+        const actions = [
+            <FlatButton
+                label="Cancel"
+                primary={true}
+                onTouchTap={this.handleClose}
+            />,
+            <FlatButton
+                label="Search"
+                primary={true}
+                keyboardFocused={true}
+                onTouchTap={this.handleClose}
+            />,
+        ];
+
         return (
 			<MuiThemeProvider muiTheme={muiTheme}>
                 <div className='main'>
@@ -110,7 +128,19 @@ class Main extends React.Component {
 											anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 											targetOrigin={{horizontal: 'right', vertical: 'top'}}
 									    >
-                                            <MenuItem primaryText="Search"/>
+                                            <MenuItem primaryText="Search" onTouchTap={this.handleOpen}/>
+                                            <Dialog
+                                                title="Can't Find Your TODOs?? Try Search It!"
+                                                actions={actions}
+                                                modal={false}
+                                                open={this.props.dialogOpen}
+                                                onRequestClose={this.handleClose}
+                                            >
+                                                Enter Some Keywords and let Starlist to the Magic.<br />
+                                                <TextField hintText="How Can I Leave Here?? HELP!!!" />
+
+                                            </Dialog>
+
 											<MenuItem primaryText="Account Settings" />
 											<MenuItem primaryText="Help" />
 											<MenuItem primaryText="Sign out" />
@@ -126,6 +156,15 @@ class Main extends React.Component {
 			</MuiThemeProvider>
         );
     }
+
+    handleOpen() {
+        this.props.dispatch(openDialog());
+    };
+
+    handleClose() {
+        this.props.dispatch(closeDialog());
+    };
+
 
     handleNavbarToggle() {
         this.props.dispatch(toggleNavbar());
