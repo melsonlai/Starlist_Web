@@ -23,35 +23,13 @@ class TodoList extends React.Component {
 
         let children = (
 			<ListItem>
+                <br />
 				<Card>
-					<CardTitle /*className="d-flex justify-content-center align-items-center"*/>
+					<CardTitle className="d-flex justify-content-center align-items-center">
                 		<div>All todos are accomplished.<br />Anything else?</div>
 					</CardTitle>
 				</Card>
                 <br />
-                <Card>
-                    <CardHeader
-                        title="第一屆 軟實 廢文大賽"
-                        subtitle="2017 May 16"
-                        //className="d-flex justify-content-center align-items-left"
-                    />
-                </Card>
-                <br />
-                <Card>
-                    <CardHeader
-                        title="蹦蹦跳 姆咪~"
-                        subtitle="2017 June 3"
-                        //className="d-flex justify-content-center align-items-left"
-                    />
-                </Card>
-                <br />
-                <Card>
-                    <CardHeader
-                        title="Pipeline 大法好"
-                        subtitle="2017 April 30"
-                        //className="d-flex justify-content-center align-items-left"
-                    />
-                </Card>
             </ListItem>
         );
         if (todos.length) {
