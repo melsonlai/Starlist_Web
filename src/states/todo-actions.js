@@ -1,7 +1,8 @@
 import {
     listTodos as listTodosFromApi,
     createTodo as createTodoFromApi,
-    accomplishTodo as accomplishTodoFromApi
+    accomplishTodo as accomplishTodoFromApi,
+	delTodoItem as delTodoItemFromApi
 } from 'api/todos.js';
 
 /*  Todo Form */
@@ -121,7 +122,7 @@ export function listTodos(searchText, loading = false) {
         if (!loading)
             dispatch(startLoading());
 
-        return listTodosFromApi(getState().todo.unaccomplishedOnly, searchText).then(todos => {
+        return listTodosFromApi(getState().todo.unaccomplishedOnly, searchText, '92bdf02a-05ea-49a1-bfc1-d7fa1722dcd3').then(todos => {
             dispatch(endListTodos(todos));
             dispatch(endLoading());
         }).catch(err => {
@@ -135,7 +136,7 @@ export function createTodo(title, descript, importance, date, isFullDay, time) {
     return (dispatch, getState) => {
         dispatch(startLoading());
 
-        return createTodoFromApi(title, descript, importance, date, isFullDay, time).then(() => {
+        return createTodoFromApi(title, descript, importance, date, isFullDay, time, '92bdf02a-05ea-49a1-bfc1-d7fa1722dcd3').then(() => {
             dispatch(listTodos(getState().searchText, true));
         }).catch(err => {
             console.error('Error creating todos', err);
@@ -167,5 +168,16 @@ export function toggleAndList() {
     return (dispatch, getState) => {
         dispatch(toggleUnaccomplishedOnly());
         return dispatch(listTodos(getState().searchText));
-    }
+    };
+}
+
+export function delTodoItem(id) {
+	return (dispatch, getState) => {
+		return delTodoItemFromApi(id).then(id => {
+			dispatch(listTodos(getState().searchText));
+		}).catch(err => {
+            console.error('Error accomplishing todos', err);
+            dispatch(endLoading());
+        });
+	};
 }
