@@ -41,6 +41,18 @@ export function setImportance(inputImportance) {
 	};
 }
 
+export function DeleteDialogClose() {
+    return{
+        type: "@TODO_FORM/DELETE_DIALOG_CLOSE"
+    };
+}
+
+export function DeleteDialogOpen() {
+    return{
+        type: "@TODO_FORM/DELETE_DIALOG_OPEN"
+    };
+}
+
 export function setDeadlineDate(inputDeadlineDate) {
 	return {
 		type: "@TODO_FORM/SET_DEADLINE_DATE",

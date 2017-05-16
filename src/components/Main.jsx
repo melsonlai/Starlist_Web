@@ -27,11 +27,11 @@ import TextField from 'material-ui/TextField';
 import {fade} from 'material-ui/utils/colorManipulator';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
-    indigo500,indigo400,
+    blue500,blue400,
 
     grey900,grey800,grey700,
 
-    indigoA100, indigoA200, indigoA400,
+    blueA100, blueA200, blueA400,
 
     fullWhite,
 
@@ -48,33 +48,33 @@ injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: indigo500,
+    primary1Color: blue500,
 
-    primary2Color: indigo500,
+    primary2Color: blue500,
 
     primary3Color: grey700,
 
-    accent1Color: indigoA200,
+    accent1Color: blueA200,
 
-    accent2Color: indigoA400,
+    accent2Color: blueA400,
 
-    accent3Color: indigoA100,
+    accent3Color: blueA100,
 
-    textColor: indigo400,
+    textColor: blue400,
 
-    secondaryTextColor: fade(indigo400, 0.7),
+    secondaryTextColor: fade(blue400, 0.7),
 
     alternateTextColor: '#303030',
 
     canvasColor: '#303030',
 
-    borderColor: fade(indigo400, 0.3),
+    borderColor: fade(blue400, 0.3),
 
-    disabledColor: fade(indigo400, 0.3),
+    disabledColor: fade(blue400, 0.3),
 
-    pickerHeaderColor: fade(indigo400, 0.12),
+    pickerHeaderColor: fade(blue400, 0.12),
 
-    clockCircleColor: fade(indigo400, 0.12),
+    clockCircleColor: fade(blue400, 0.12),
   },
 });
 

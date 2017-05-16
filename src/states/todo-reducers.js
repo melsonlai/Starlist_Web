@@ -6,7 +6,8 @@ const initTodoFormState = {
     inputTagValue: '',
     inputDanger: false,
     moodToggle: false,
-    mood: 'na'
+    mood: 'na',
+    del_Dialog_state: false
 };
 export function todoForm(state = initTodoFormState, action) {
     switch (action.type) {
@@ -64,6 +65,16 @@ export function todoForm(state = initTodoFormState, action) {
             return {
                 ...state,
                 mood: action.mood
+            };
+        case '@TODO_FORM/DELETE_DIALOG_CLOSE':
+            return {
+                ...state,
+                del_Dialog_state: false
+            };
+        case '@TODO_FORM/DELETE_DIALOG_OPEN':
+            return {
+                ...state,
+                del_Dialog_state: true
             };
         default:
             return state;
