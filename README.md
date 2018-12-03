@@ -1,4 +1,4 @@
-# Starlist_Web
+# starlist-web
 
 This is the front end of Starlist Web App, which includes:
 
